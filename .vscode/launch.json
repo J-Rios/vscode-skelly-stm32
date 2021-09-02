@@ -1,0 +1,123 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "JLink launch",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/vscode-skelly-stm32-nucleo-f401re.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "STM32F401RE",
+            "interface": "swd",
+            "runToMain": true,
+            "preLaunchTask": "Build all",
+            "svdFile": "",
+            "swoConfig":
+            {
+                "enabled": true,
+                "cpuFrequency": 160000000,
+                "swoFrequency": 4000000,
+                "source": "probe",
+                "decoders":
+                [
+                    {
+                        "label": "ITM port 0 output",
+                        "type": "console",
+                        "port": 0,
+                        "showOnStartup": true,
+                        "encoding": "ascii"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "JLink attach",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/vscode-skelly-stm32-nucleo-f401re.elf",
+            "request": "attach",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "STM32F401RE",
+            "interface": "swd",
+            "runToMain": true,
+            "preLaunchTask": "Build all",
+            "svdFile": "",
+            "swoConfig":
+            {
+                "enabled": true,
+                "cpuFrequency": 160000000,
+                "swoFrequency": 4000000,
+                "source": "probe",
+                "decoders":
+                [
+                    {
+                        "label": "ITM port 0 output",
+                        "type": "console",
+                        "port": 0,
+                        "showOnStartup": true,
+                        "encoding": "ascii"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "STlink launch",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/vscode-skelly-stm32-nucleo-f401re.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "stutil",
+            "device": "STM32F401RE",
+            "interface": "swd",
+            "runToMain": true,
+            "preLaunchTask": "Build all",
+            "svdFile": "",
+            "swoConfig": {}
+        },
+        {
+            "name": "STlink attach",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/vscode-skelly-stm32-nucleo-f401re.elf",
+            "request": "attach",
+            "type": "cortex-debug",
+            "servertype": "stutil",
+            "device": "STM32F401RE",
+            "interface": "swd",
+            "runToMain": true,
+            "preLaunchTask": "Build all",
+            "svdFile": "",
+            "swoConfig": {}
+        },
+        {
+            "name": "OpenOCD launch",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "openocd",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/vscode-skelly-stm32-nucleo-f401re.elf",
+            "runToMain": true,
+            "device": "STM32F401RE",
+            "configFiles":
+            [
+                "interface/stlink-v2-1.cfg",
+                "target/stm32f4x.cfg"
+            ]
+        },
+        {
+            "name": "OpenOCD attach",
+            "type": "cortex-debug",
+            "request": "attach",
+            "servertype": "openocd",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/vscode-skelly-stm32-nucleo-f401re.elf",
+            "runToMain": true,
+            "device": "STM32F401RE",
+            "configFiles":
+            [
+                "interface/stlink-v2-1.cfg",
+                "target/stm32f4x.cfg"
+            ]
+        }
+    ]
+}
