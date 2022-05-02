@@ -47,9 +47,19 @@ Here is the steps that has been followed to create current project:
 
 4. Create a **./vscode/c_cpp_properties.json** file and setup C & C++ standard versions, the **arm-none-eabi-gcc compiler path**, **Defines** and the **compiler arguments** that are used in project *Makefile* to setup correctly intellisense functionality.
 
-5. Create a **./vscode/tasks.json** file and setup Make build commands and tasks availables to be used from vscode.
+5. Create a **./vscode/tasks.json** file and setup Make build commands, and tasks available, to be used from vscode.
 
 6. Create a **./vscode/launch.json** file and setup each available debuggers to be used and their specific configurations for target device.
+
+## Adding Segger RTT debug interface support
+
+To get the Segger Real Time Transfer (RTT) debugging mechanism to send and receive messages (or any data) through a JLINK debugger:
+
+1. Get and install the [Segger RTT API](https://www.segger.com/products/debug-probes/j-link/technology/about-real-time-transfer/) by downloading the [JLink Software Pack](https://www.segger.com/downloads/jlink/), and extract the API from **/opt/SEGGER/JLink*/Samples/RTT/** into project **Drivers/** directory. You can also get the API files from [this GIT repository](https://github.com/J-Rios/segger-rtt), however it won't receive updates from Segger.
+
+2. Modify the project Makefile to point to the new headers and sources of the RTT API.
+
+3. Include the RTT main header on a file where you want to have access to it, and start using the RTT functionality.
 
 ## Usage
 
@@ -71,6 +81,14 @@ Release Flash:
 
 ## Notes
 
-- Remember that compiler optimizations will translate the C/C++ code to an efficient memory/speed ASM, causing that lines execution behaviour when debugging will confuse a human. To keep a sequentially line-by-line execution a -Og flag/parameter needs to be passed to the compiler (change that in Makefile). Of course, you won't want this debug oriented optimization for Release, so you should use -Os for firmware Release.
+- Remember that compiler optimizations will translate the C/C++ code to an efficient memory/speed ASM, causing that lines execution behavior when debugging will confuse a human. To keep a sequentially line-by-line execution a -Og flag/parameter needs to be passed to the compiler (change that in Makefile). Of course, you won't want this debug oriented optimization for Release, so you should use -Os for firmware Release.
 
 - There is a [good video resource](https://www.youtube.com/watch?v=g2Kf6RbdrIs) where I have based this project setup from.
+
+- Some resources regarding Segger RTT debugging:
+
+[https://www.segger.com/products/debug-probes/j-link/technology/about-real-time-transfer/](https://www.segger.com/products/debug-probes/j-link/technology/about-real-time-transfer/)
+
+[https://www.codeinsideout.com/blog/stm32/j-link-rtt/](https://www.codeinsideout.com/blog/stm32/j-link-rtt/)
+
+[https://mcuoneclipse.com/2021/10/03/visual-studio-code-for-c-c-with-arm-cortex-m-part-9-rtt/](https://mcuoneclipse.com/2021/10/03/visual-studio-code-for-c-c-with-arm-cortex-m-part-9-rtt/)

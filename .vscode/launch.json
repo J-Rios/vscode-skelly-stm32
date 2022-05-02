@@ -2,7 +2,61 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "JLink launch",
+            "name": "JLink RTT launch",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/vscode-skelly-stm32.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "STM32F401RE",
+            "interface": "swd",
+            "runToEntryPoint": "main",
+            "preLaunchTask": "Build all",
+            "svdFile": "",
+            "serverpath": "/opt/SEGGER/JLink/JLinkGDBServerCLExe",
+            "rttConfig":
+            {
+                "enabled": true,
+                "address": "auto",
+                "decoders":
+                [
+                    {
+                        "label": "STDOUT",
+                        "port": 0,
+                        "type": "console"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "JLink RTT attach",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/build/vscode-skelly-stm32.elf",
+            "request": "attach",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "STM32F401RE",
+            "interface": "swd",
+            "runToMain": true,
+            "preLaunchTask": "Build all",
+            "svdFile": "",
+            "serverpath": "/opt/SEGGER/JLink/JLinkGDBServerCLExe",
+            "rttConfig":
+            {
+                "enabled": true,
+                "address": "auto",
+                "decoders":
+                [
+                    {
+                        "label": "STDOUT",
+                        "port": 0,
+                        "type": "console"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "JLink SWO launch",
             "cwd": "${workspaceRoot}",
             "executable": "${workspaceRoot}/build/vscode-skelly-stm32.elf",
             "request": "launch",
@@ -32,7 +86,7 @@
             }
         },
         {
-            "name": "JLink attach",
+            "name": "JLink SWO attach",
             "cwd": "${workspaceRoot}",
             "executable": "${workspaceRoot}/build/vscode-skelly-stm32.elf",
             "request": "attach",

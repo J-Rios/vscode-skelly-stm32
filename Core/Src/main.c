@@ -24,7 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "SEGGER_RTT.h" // JTAG RTT Debugging
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -38,7 +38,9 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+#define debug_rtt_channel 0
+#define debug_init() SEGGER_RTT_Init()
+#define debug_printf(...) SEGGER_RTT_printf(debug_rtt_channel, __VA_ARGS__)
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -54,7 +56,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
-
+void debug_read(char* buff, uint16_t buff_size);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -69,7 +71,8 @@ static void MX_USART2_UART_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  debug_init();
+  debug_printf("System Start\r\n");
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -78,21 +81,21 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  debug_printf("HAL initialized\r\n");
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+  debug_printf("System clock configured\r\n");
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  debug_printf("Hardware initialized\r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -225,6 +228,26 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+/**
+ * @details
+ * This function wait for incoming characters from Segger RTT interface and
+ * read it into provided array.
+ */
+void debug_read(char* buff, uint16_t buff_size)
+{
+    char c = '\0';
+
+    while ((c != '\n') && (buff_size > 1U))
+    {
+        if (SEGGER_RTT_HasKey())
+        {
+            *buff++ = (char)(SEGGER_RTT_GetKey());
+            buff_size = (uint16_t)(buff_size - 1U);
+        }
+    }
+    *buff = '\0';
+}
 
 /* USER CODE END 4 */
 
